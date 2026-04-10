@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://srk41934-spec.github.io/elite-magnus-dental/sitemap.xml
