@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — Elite Magnus Dental</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal: #2a7d6f;
+    --teal-light: #3a9d8f;
+    --teal-pale: #e8f5f3;
+    --gold: #c9a96e;
+    --dark: #0f1f1d;
+    --sidebar: #142320;
+    --card: #1a2e2b;
+    --text: #e2eeec;
+    --muted: #7a9e9a;
+    --border: rgba(255,255,255,0.08);
+    --green: #22c55e;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --blue: #3b82f6;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── LOGIN SCREEN ── */
+  #login-screen {
+    position: fixed; inset: 0;
+    background: linear-gradient(135deg, #0a1614 0%, #1a2e2b 100%);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000;
+  }
+  .login-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 3rem;
+    width: 100%; max-width: 420px;
+    backdrop-filter: blur(20px);
+    text-align: center;
+  }
+  .login-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .login-logo span { color: var(--gold); }
+  .login-sub { font-size: 13px; color: var(--muted); margin-bottom: 2.5rem; }
+  .login-label { font-size: 12px; font-weight: 500; color: var(--muted); text-align: left; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; display: block; }
+  .login-input {
+    width: 100%; padding: 12px 16px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    color: #fff; font-size: 15px;
+    outline: none; margin-bottom: 1.2rem;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.2s;
+  }
+  .login-input:focus { border-color: var(--teal); }
+  .login-btn {
+    width: 100%; padding: 13px;
+    background: var(--teal);
+    color: #fff; border: none;
+    border-radius: 10px; font-size: 15px;
+    font-weight: 600; cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.02em;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .login-btn:hover { background: var(--teal-light); transform: translateY(-1px); }
+  .login-error { color: var(--red); font-size: 13px; margin-top: 10px; display: none; }
+
+  /* ── LAYOUT ── */
+  #app { display: none; min-height: 100vh; }
+
+  .sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: 240px;
+    background: var(--sidebar);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    padding: 1.5rem 0;
+    z-index: 10;
+  }
+  .sidebar-logo {
+    padding: 0 1.5rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1rem;
+  }
+  .sidebar-logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 600;
+    color: #fff;
+  }
+  .sidebar-logo-text span { color: var(--gold); }
+  .sidebar-tag { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+
+  .nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 1.5rem;
+    font-size: 13.5px; font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    border-radius: 0;
+    transition: all 0.15s;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+  }
+  .nav-item:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+  .nav-item.active { color: var(--teal-light); border-left-color: var(--teal); background: rgba(42,125,111,0.1); }
+  .nav-icon { font-size: 16px; }
+
+  .sidebar-footer {
+    margin-top: auto; padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .logout-btn {
+    width: 100%; padding: 9px;
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 8px; color: #ef9999;
+    font-size: 13px; cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+  }
+  .logout-btn:hover { background: rgba(239,68,68,0.2); }
+
+  .main {
+    margin-left: 240px;
+    padding: 2rem;
+    min-height: 100vh;
+  }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+  .page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 500;
+  }
+  .topbar-right { display: flex; align-items: center; gap: 12px; }
+  .live-badge {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(34,197,94,0.1);
+    border: 1px solid rgba(34,197,94,0.2);
+    padding: 6px 12px; border-radius: 100px;
+    font-size: 12px; color: var(--green);
+    font-weight: 500;
+  }
+  .live-dot {
+    width: 7px; height: 7px;
+    background: var(--green); border-radius: 50%;
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .refresh-btn {
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text);
+    font-size: 13px; cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+  }
+  .refresh-btn:hover { background: rgba(255,255,255,0.1); }
+
+  /* ── STATS ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem; margin-bottom: 2rem;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.4rem;
+    position: relative; overflow: hidden;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+  .stat-card.total::before { background: var(--teal); }
+  .stat-card.today::before { background: var(--gold); }
+  .stat-card.pending::before { background: var(--amber); }
+  .stat-card.confirmed::before { background: var(--green); }
+
+  .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .stat-num { font-size: 36px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+  .stat-card.total .stat-num { color: var(--teal-light); }
+  .stat-card.today .stat-num { color: var(--gold); }
+  .stat-card.pending .stat-num { color: var(--amber); }
+  .stat-card.confirmed .stat-num { color: var(--green); }
+  .stat-sub { font-size: 12px; color: var(--muted); }
+  .stat-icon { position: absolute; top: 1.2rem; right: 1.2rem; font-size: 24px; opacity: 0.3; }
+
+  /* ── FILTER BAR ── */
+  .filter-bar {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 1.5rem; flex-wrap: wrap;
+  }
+  .search-wrap {
+    position: relative; flex: 1; min-width: 220px;
+  }
+  .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 15px; }
+  .search-input {
+    width: 100%; padding: 10px 14px 10px 38px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px; color: var(--text);
+    font-size: 14px; outline: none;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.2s;
+  }
+  .search-input:focus { border-color: var(--teal); }
+  .search-input::placeholder { color: var(--muted); }
+  .filter-select {
+    padding: 10px 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px; color: var(--text);
+    font-size: 13px; outline: none;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+  }
+  .export-btn {
+    padding: 10px 18px;
+    background: rgba(201,169,110,0.15);
+    border: 1px solid rgba(201,169,110,0.25);
+    border-radius: 10px; color: var(--gold);
+    font-size: 13px; cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .export-btn:hover { background: rgba(201,169,110,0.25); }
+
+  /* ── TABLE ── */
+  .table-wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead { background: rgba(255,255,255,0.04); }
+  th {
+    padding: 13px 16px;
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--muted); text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 14px 16px;
+    font-size: 13.5px; color: var(--text);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: middle;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .patient-name { font-weight: 600; color: #fff; }
+  .patient-phone { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  .service-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    background: rgba(42,125,111,0.15);
+    border: 1px solid rgba(42,125,111,0.2);
+    border-radius: 100px;
+    font-size: 11.5px; color: var(--teal-light);
+    font-weight: 500;
+  }
+
+  .status-select {
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 12px; font-weight: 600;
+    border: none; cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+  }
+  .status-select.pending { background: rgba(245,158,11,0.15); color: #fbbf24; }
+  .status-select.confirmed { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .status-select.cancelled { background: rgba(239,68,68,0.15); color: #f87171; }
+
+  .delete-btn {
+    background: none; border: none;
+    color: var(--muted); cursor: pointer;
+    font-size: 16px; padding: 4px 8px;
+    border-radius: 6px; transition: all 0.2s;
+  }
+  .delete-btn:hover { background: rgba(239,68,68,0.1); color: var(--red); }
+
+  .today-row td { background: rgba(201,169,110,0.04); }
+  .today-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: rgba(201,169,110,0.15);
+    border-radius: 100px;
+    font-size: 10px; color: var(--gold);
+    font-weight: 600; margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    padding: 4rem; text-align: center;
+    color: var(--muted);
+  }
+  .empty-icon { font-size: 48px; margin-bottom: 1rem; opacity: 0.5; }
+  .empty-title { font-size: 18px; font-weight: 500; margin-bottom: 8px; }
+  .empty-sub { font-size: 14px; }
+
+  /* ── SETUP SECTION ── */
+  .setup-card {
+    background: var(--card);
+    border: 1px solid rgba(201,169,110,0.2);
+    border-radius: 16px; padding: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .setup-title {
+    font-size: 16px; font-weight: 600;
+    color: var(--gold); margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .setup-steps { display: flex; flex-direction: column; gap: 10px; }
+  .setup-step {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 13.5px; color: var(--muted); line-height: 1.5;
+  }
+  .step-num {
+    width: 24px; height: 24px; flex-shrink: 0;
+    background: rgba(42,125,111,0.2);
+    border: 1px solid rgba(42,125,111,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600; color: var(--teal-light);
+  }
+  .setup-input-row { display: flex; gap: 10px; margin-top: 1rem; }
+  .setup-url-input {
+    flex: 1; padding: 10px 14px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    border-radius: 10px; color: var(--text);
+    font-size: 13px; outline: none;
+    font-family: 'Inter', sans-serif;
+  }
+  .setup-url-input:focus { border-color: var(--teal); }
+  .connect-btn {
+    padding: 10px 20px;
+    background: var(--teal);
+    border: none; border-radius: 10px;
+    color: #fff; font-size: 13px; font-weight: 600;
+    cursor: pointer; font-family: 'Inter', sans-serif;
+    transition: background 0.2s;
+  }
+  .connect-btn:hover { background: var(--teal-light); }
+
+  code {
+    background: rgba(255,255,255,0.08);
+    padding: 2px 7px; border-radius: 4px;
+    font-size: 12px; color: var(--teal-light);
+    font-family: monospace;
+  }
+
+  /* No setup area, show demo mode notice */
+  .demo-banner {
+    background: rgba(245,158,11,0.1);
+    border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 12px; padding: 14px 18px;
+    font-size: 13px; color: #fbbf24;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .sidebar { width: 60px; }
+    .sidebar-logo-text, .nav-item span, .sidebar-tag, .sidebar-footer { display: none; }
+    .nav-item { padding: 12px; justify-content: center; }
+    .main { margin-left: 60px; padding: 1.2rem; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── LOGIN ── -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">Elite Magnus <span>Dental</span></div>
+    <div class="login-sub">Admin Dashboard — Staff Access Only</div>
+    <label class="login-label" for="login-pass">Password</label>
+    <input class="login-input" type="password" id="login-pass" placeholder="Enter admin password" onkeydown="if(event.key==='Enter') doLogin()">
+    <button class="login-btn" onclick="doLogin()">🔐 Sign In</button>
+    <div class="login-error" id="login-error">Incorrect password. Please try again.</div>
+  </div>
+</div>
+
+<!-- ── APP ── -->
+<div id="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-text">Elite Magnus <span>Dental</span></div>
+      <div class="sidebar-tag">Admin Panel</div>
+    </div>
+    <nav>
+      <a class="nav-item active" onclick="showPage('appointments')">
+        <span class="nav-icon">📅</span>
+        <span>Appointments</span>
+      </a>
+      <a class="nav-item" onclick="showPage('setup')">
+        <span class="nav-icon">⚙️</span>
+        <span>Setup / Connect</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- ── APPOINTMENTS PAGE ── -->
+    <div id="page-appointments">
+      <div class="topbar">
+        <div class="page-title">Appointments</div>
+        <div class="topbar-right">
+          <div class="live-badge">
+            <span class="live-dot"></span>
+            <span id="last-refresh">Live</span>
+          </div>
+          <button class="refresh-btn" onclick="loadData()">🔄 Refresh</button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card total">
+          <div class="stat-label">Total Appointments</div>
+          <div class="stat-num" id="stat-total">0</div>
+          <div class="stat-sub">All time</div>
+          <div class="stat-icon">📋</div>
+        </div>
+        <div class="stat-card today">
+          <div class="stat-label">Today</div>
+          <div class="stat-num" id="stat-today">0</div>
+          <div class="stat-sub">Appointments today</div>
+          <div class="stat-icon">📆</div>
+        </div>
+        <div class="stat-card pending">
+          <div class="stat-label">Pending</div>
+          <div class="stat-num" id="stat-pending">0</div>
+          <div class="stat-sub">Awaiting confirmation</div>
+          <div class="stat-icon">⏳</div>
+        </div>
+        <div class="stat-card confirmed">
+          <div class="stat-label">Confirmed</div>
+          <div class="stat-num" id="stat-confirmed">0</div>
+          <div class="stat-sub">Ready to go</div>
+          <div class="stat-icon">✅</div>
+        </div>
+      </div>
+
+      <!-- Demo banner -->
+      <div class="demo-banner" id="demo-banner">
+        ⚠️ <strong>Demo Mode:</strong> Connect your Google Sheet in <strong>Setup</strong> to see real appointments. Sample data shown below.
+      </div>
+
+      <!-- Filters -->
+      <div class="filter-bar">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input class="search-input" type="text" id="search-input" placeholder="Search by name, phone or service..." oninput="filterTable()">
+        </div>
+        <select class="filter-select" id="status-filter" onchange="filterTable()">
+          <option value="">All Statuses</option>
+          <option value="pending">Pending</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+        <select class="filter-select" id="service-filter" onchange="filterTable()">
+          <option value="">All Services</option>
+          <option>General Checkup & Cleaning</option>
+          <option>Dental Implants</option>
+          <option>Invisalign Braces</option>
+          <option>Root Canal Treatment</option>
+          <option>Teeth Whitening</option>
+          <option>Smile Makeover</option>
+          <option>Crowns & Bridges</option>
+          <option>Laser Dentistry</option>
+          <option>Other</option>
+        </select>
+        <button class="export-btn" onclick="exportCSV()">⬇️ Export CSV</button>
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Patient</th>
+              <th>Email</th>
+              <th>Service</th>
+              <th>Submitted</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="appointments-body">
+          </tbody>
+        </table>
+        <div class="empty-state" id="empty-state" style="display:none;">
+          <div class="empty-icon">📭</div>
+          <div class="empty-title">No appointments found</div>
+          <div class="empty-sub">Try changing your filters or wait for new submissions.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SETUP PAGE ── -->
+    <div id="page-setup" style="display:none;">
+      <div class="topbar">
+        <div class="page-title">Setup & Connect</div>
+      </div>
+
+      <div class="setup-card">
+        <div class="setup-title">🔗 Connect to Google Sheets (Free)</div>
+        <div class="setup-steps">
+          <div class="setup-step">
+            <div class="step-num">1</div>
+            <div>Go to <strong style="color:#fff">script.google.com</strong> → New Project → paste the script from <code>google-apps-script.js</code> (given separately)</div>
+          </div>
+          <div class="setup-step">
+            <div class="step-num">2</div>
+            <div>Click <strong style="color:#fff">Deploy → New Deployment → Web App</strong> → Set access to <code>Anyone</code> → Deploy</div>
+          </div>
+          <div class="setup-step">
+            <div class="step-num">3</div>
+            <div>Copy the <strong style="color:#fff">Web App URL</strong> and paste it below:</div>
+          </div>
+        </div>
+        <div class="setup-input-row">
+          <input class="setup-url-input" type="text" id="sheet-url" placeholder="https://script.google.com/macros/s/YOUR_ID/exec" value="">
+          <button class="connect-btn" onclick="saveSheetUrl()">✅ Save & Connect</button>
+        </div>
+        <div id="connect-status" style="font-size:13px; margin-top:10px; color:var(--muted);"></div>
+      </div>
+
+      <div class="setup-card">
+        <div class="setup-title">🔐 Change Admin Password</div>
+        <div class="setup-input-row">
+          <input class="setup-url-input" type="password" id="new-pass" placeholder="Enter new password">
+          <button class="connect-btn" onclick="changePassword()">💾 Save Password</button>
+        </div>
+        <div id="pass-status" style="font-size:13px; margin-top:10px; color:var(--muted);"></div>
+      </div>
+
+      <div class="setup-card">
+        <div class="setup-title">📋 Add Appointment Manually</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;">
+          <div>
+            <div class="login-label">First Name</div>
+            <input class="setup-url-input" type="text" id="m-first" placeholder="Rajesh">
+          </div>
+          <div>
+            <div class="login-label">Last Name</div>
+            <input class="setup-url-input" type="text" id="m-last" placeholder="Kumar">
+          </div>
+          <div>
+            <div class="login-label">Phone</div>
+            <input class="setup-url-input" type="tel" id="m-phone" placeholder="+91 98765 43210">
+          </div>
+          <div>
+            <div class="login-label">Email</div>
+            <input class="setup-url-input" type="email" id="m-email" placeholder="patient@email.com">
+          </div>
+          <div style="grid-column:1/-1;">
+            <div class="login-label">Service</div>
+            <select class="filter-select" id="m-service" style="width:100%; padding:10px 14px;">
+              <option>General Checkup & Cleaning</option>
+              <option>Dental Implants</option>
+              <option>Invisalign Braces</option>
+              <option>Root Canal Treatment</option>
+              <option>Teeth Whitening</option>
+              <option>Smile Makeover</option>
+              <option>Crowns & Bridges</option>
+              <option>Laser Dentistry</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <button class="connect-btn" style="margin-top:12px; width:100%;" onclick="addManual()">➕ Add Appointment</button>
+        <div id="manual-status" style="font-size:13px; margin-top:10px; color:var(--muted);"></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ── CONFIG ──
+const ADMIN_PASS_KEY = 'emd_admin_pass';
+const SHEET_URL_KEY  = 'emd_sheet_url';
+const APPTS_KEY      = 'emd_appointments';
+const DEFAULT_PASS   = 'dental2025';
+
+// ── DEMO DATA ──
+const DEMO_DATA = [
+  { id: 1, firstName:'Priya',    lastName:'Mehta',    phone:'+91 98765 00001', email:'priya@gmail.com',    service:'Invisalign Braces',       date:'2026-04-17', status:'confirmed' },
+  { id: 2, firstName:'Rajan',    lastName:'Kumar',    phone:'+91 98765 00002', email:'rajan@gmail.com',    service:'Dental Implants',          date:'2026-04-17', status:'pending'   },
+  { id: 3, firstName:'Ananya',   lastName:'Singh',    phone:'+91 98765 00003', email:'ananya@gmail.com',   service:'Teeth Whitening',          date:'2026-04-15', status:'confirmed' },
+  { id: 4, firstName:'Vikram',   lastName:'Reddy',    phone:'+91 98765 00004', email:'vikram@gmail.com',   service:'Root Canal Treatment',     date:'2026-04-14', status:'cancelled' },
+  { id: 5, firstName:'Sunita',   lastName:'Rao',      phone:'+91 98765 00005', email:'sunita@gmail.com',   service:'General Checkup & Cleaning',date:'2026-04-13',status:'confirmed' },
+];
+
+let allAppointments = [];
+let sheetUrl = '';
+
+// ── AUTH ──
+function getPassword() { return localStorage.getItem(ADMIN_PASS_KEY) || DEFAULT_PASS; }
+function doLogin() {
+  const val = document.getElementById('login-pass').value;
+  if (val === getPassword()) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    loadData();
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+    document.getElementById('login-pass').value = '';
+  }
+}
+function logout() {
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-pass').value = '';
+  document.getElementById('login-error').style.display = 'none';
+}
+function changePassword() {
+  const np = document.getElementById('new-pass').value.trim();
+  if (np.length < 4) { document.getElementById('pass-status').textContent = '❌ Password must be at least 4 characters.'; return; }
+  localStorage.setItem(ADMIN_PASS_KEY, np);
+  document.getElementById('pass-status').textContent = '✅ Password updated successfully!';
+  document.getElementById('new-pass').value = '';
+}
+
+// ── NAVIGATION ──
+function showPage(page) {
+  document.getElementById('page-appointments').style.display = page === 'appointments' ? 'block' : 'none';
+  document.getElementById('page-setup').style.display = page === 'setup' ? 'block' : 'none';
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+}
+
+// ── DATA ──
+function loadData() {
+  sheetUrl = localStorage.getItem(SHEET_URL_KEY) || '';
+  const saved = localStorage.getItem(APPTS_KEY);
+  if (saved) {
+    allAppointments = JSON.parse(saved);
+    document.getElementById('demo-banner').style.display = 'none';
+  } else {
+    allAppointments = JSON.parse(JSON.stringify(DEMO_DATA));
+    document.getElementById('demo-banner').style.display = 'flex';
+  }
+
+  if (sheetUrl) {
+    document.getElementById('last-refresh').textContent = 'Fetching...';
+    fetch(sheetUrl + '?action=get')
+      .then(r => r.json())
+      .then(data => {
+        if (data && data.appointments) {
+          allAppointments = data.appointments.map((r, i) => ({
+            id: i + 1,
+            firstName: r[1] || '', lastName: r[2] || '',
+            phone: r[3] || '', email: r[4] || '',
+            service: r[5] || '', date: r[0] || '',
+            status: r[6] || 'pending'
+          }));
+          localStorage.setItem(APPTS_KEY, JSON.stringify(allAppointments));
+          document.getElementById('demo-banner').style.display = 'none';
+        }
+        document.getElementById('last-refresh').textContent = 'Live · ' + new Date().toLocaleTimeString();
+        renderTable();
+      }).catch(() => {
+        document.getElementById('last-refresh').textContent = 'Offline · using local data';
+        renderTable();
+      });
+  } else {
+    document.getElementById('last-refresh').textContent = 'Demo Mode';
+    renderTable();
+  }
+}
+
+function saveSheetUrl() {
+  const url = document.getElementById('sheet-url').value.trim();
+  if (!url.includes('script.google.com')) {
+    document.getElementById('connect-status').textContent = '❌ Invalid URL. Must be a Google Apps Script deployment URL.';
+    return;
+  }
+  localStorage.setItem(SHEET_URL_KEY, url);
+  document.getElementById('connect-status').textContent = '✅ Saved! Fetching data...';
+  sheetUrl = url;
+  loadData();
+}
+
+function saveAppointments() {
+  localStorage.setItem(APPTS_KEY, JSON.stringify(allAppointments));
+}
+
+function addManual() {
+  const fn = document.getElementById('m-first').value.trim();
+  const ln = document.getElementById('m-last').value.trim();
+  const ph = document.getElementById('m-phone').value.trim();
+  const em = document.getElementById('m-email').value.trim();
+  const sv = document.getElementById('m-service').value;
+  if (!fn || !ph) { document.getElementById('manual-status').textContent = '❌ First name and phone are required.'; return; }
+  const newAppt = { id: Date.now(), firstName:fn, lastName:ln, phone:ph, email:em, service:sv, date: new Date().toISOString().split('T')[0], status:'pending' };
+  allAppointments.unshift(newAppt);
+  saveAppointments();
+  document.getElementById('manual-status').textContent = '✅ Appointment added!';
+  ['m-first','m-last','m-phone','m-email'].forEach(id => document.getElementById(id).value='');
+  updateStats();
+  filterTable();
+  document.getElementById('demo-banner').style.display = 'none';
+}
+
+// ── RENDER ──
+function renderTable(data) {
+  const rows = data || allAppointments;
+  const tbody = document.getElementById('appointments-body');
+  const today = new Date().toISOString().split('T')[0];
+
+  if (rows.length === 0) {
+    tbody.innerHTML = '';
+    document.getElementById('empty-state').style.display = 'block';
+    return;
+  }
+  document.getElementById('empty-state').style.display = 'none';
+
+  tbody.innerHTML = rows.map((a, i) => {
+    const isToday = a.date === today;
+    return `<tr class="${isToday ? 'today-row' : ''}">
+      <td style="color:var(--muted); font-size:12px;">${i+1}</td>
+      <td>
+        <div class="patient-name">${a.firstName} ${a.lastName}${isToday ? '<span class="today-badge">TODAY</span>' : ''}</div>
+        <div class="patient-phone">${a.phone}</div>
+      </td>
+      <td style="font-size:12.5px; color:var(--muted);">${a.email || '—'}</td>
+      <td><span class="service-badge">${a.service || '—'}</span></td>
+      <td style="font-size:12px; color:var(--muted);">${formatDate(a.date)}</td>
+      <td>
+        <select class="status-select ${a.status}" onchange="updateStatus(${a.id}, this.value, this)">
+          <option value="pending"   ${a.status==='pending'   ? 'selected':''}> ⏳ Pending</option>
+          <option value="confirmed" ${a.status==='confirmed' ? 'selected':''}> ✅ Confirmed</option>
+          <option value="cancelled" ${a.status==='cancelled' ? 'selected':''}> ❌ Cancelled</option>
+        </select>
+      </td>
+      <td>
+        <button class="delete-btn" onclick="deleteAppt(${a.id})" title="Delete">🗑️</button>
+      </td>
+    </tr>`;
+  }).join('');
+
+  updateStats();
+}
+
+function formatDate(d) {
+  if (!d) return '—';
+  const dt = new Date(d + 'T00:00:00');
+  return dt.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+}
+
+function updateStats() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('stat-total').textContent     = allAppointments.length;
+  document.getElementById('stat-today').textContent     = allAppointments.filter(a => a.date === today).length;
+  document.getElementById('stat-pending').textContent   = allAppointments.filter(a => a.status === 'pending').length;
+  document.getElementById('stat-confirmed').textContent = allAppointments.filter(a => a.status === 'confirmed').length;
+}
+
+function updateStatus(id, newStatus, el) {
+  el.className = 'status-select ' + newStatus;
+  const appt = allAppointments.find(a => a.id === id);
+  if (appt) { appt.status = newStatus; saveAppointments(); updateStats(); }
+}
+
+function deleteAppt(id) {
+  if (!confirm('Delete this appointment?')) return;
+  allAppointments = allAppointments.filter(a => a.id !== id);
+  saveAppointments();
+  filterTable();
+}
+
+// ── FILTER ──
+function filterTable() {
+  const search  = document.getElementById('search-input').value.toLowerCase();
+  const status  = document.getElementById('status-filter').value;
+  const service = document.getElementById('service-filter').value;
+  const filtered = allAppointments.filter(a => {
+    const name = `${a.firstName} ${a.lastName} ${a.phone} ${a.email}`.toLowerCase();
+    return (!search  || name.includes(search))
+        && (!status  || a.status  === status)
+        && (!service || a.service === service);
+  });
+  renderTable(filtered);
+}
+
+// ── EXPORT ──
+function exportCSV() {
+  const headers = ['#','First Name','Last Name','Phone','Email','Service','Date','Status'];
+  const rows = allAppointments.map((a,i) => [i+1, a.firstName, a.lastName, a.phone, a.email, a.service, a.date, a.status]);
+  const csv  = [headers, ...rows].map(r => r.map(v => `"${v}"`).join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a'); a.href = url;
+  a.download = `appointments_${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+}
+
+// ── LOAD SHEET URL INTO SETUP ──
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem(SHEET_URL_KEY);
+  if (saved) document.getElementById('sheet-url').value = saved;
+});
+</script>
+</body>
+</html>
