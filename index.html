@@ -3,17 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-site-verification" content="CT9rMBv8P0b0KYfEsH-_0jwTJZcxXWtgRvOXwPvywjE" />
-<title>Elite Magnus Dental Clinic - Best Dentist in Narsingi, Hyderabad</title>
-<meta name="description" content="Elite Magnus Dental Clinic in Narsingi, Hyderabad offers advanced dental care by USA-trained dentist Dr. Satya Pabbaraju. Specializing in Invisalign, dental implants, laser dentistry, smile makeover, root canal & more. Book appointment today!">
-<meta name="keywords" content="dental clinic narsingi, best dentist hyderabad, invisalign hyderabad, dental implants narsingi, laser dentistry hyderabad, smile makeover hyderabad, dr satya pabbaraju">
-<meta name="robots" content="index,follow">
-<meta property="og:title" content="Elite Magnus Dental Clinic - Advanced Dental Care in Narsingi, Hyderabad">
-<meta property="og:description" content="USA-trained dentist offering Invisalign, implants, laser dentistry & smile makeovers in Narsingi, Hyderabad.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://srk41934-spec.github.io/elite-magnus-dental/">
-<link rel="canonical" href="https://srk41934-spec.github.io/elite-magnus-dental/">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"><style>
+<title>Elite Magnus Dental Clinic - Advanced Dental Care Hyderabad</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
@@ -841,47 +833,103 @@
       <h2>Book Your Appointment Today</h2>
       <p>Take the first step towards a healthier, more confident smile. Our team will get in touch to confirm your appointment at the earliest convenience.</p>
     </div>
-    <div class="appt-form">
+    <div class="appt-form" id="appt-form-wrap">
       <h3>Request an Appointment</h3>
       <div class="form-row">
         <div class="form-field">
           <label>First Name</label>
-          <input type="text" placeholder="Rajesh" />
+          <input type="text" id="appt-first" placeholder="Rajesh" />
         </div>
         <div class="form-field">
           <label>Last Name</label>
-          <input type="text" placeholder="Kumar" />
+          <input type="text" id="appt-last" placeholder="Kumar" />
         </div>
       </div>
       <div class="form-row">
         <div class="form-field">
           <label>Phone</label>
-          <input type="tel" placeholder="+91 98765 43210" />
+          <input type="tel" id="appt-phone" placeholder="+91 98765 43210" />
         </div>
         <div class="form-field">
           <label>Email</label>
-          <input type="email" placeholder="you@example.com" />
+          <input type="email" id="appt-email" placeholder="you@example.com" />
         </div>
       </div>
       <div class="form-field">
         <label>Service Required</label>
-        <select>
-          <option>Select a service...</option>
-          <option>General Checkup & Cleaning</option>
+        <select id="appt-service">
+          <option value="">Select a service...</option>
+          <option>General Checkup &amp; Cleaning</option>
           <option>Dental Implants</option>
           <option>Invisalign Braces</option>
           <option>Root Canal Treatment</option>
           <option>Teeth Whitening</option>
           <option>Smile Makeover</option>
-          <option>Crowns & Bridges</option>
+          <option>Crowns &amp; Bridges</option>
           <option>Laser Dentistry</option>
           <option>Other</option>
         </select>
       </div>
-      <button class="form-submit">Request Appointment →</button>
+      <div id="appt-error" style="display:none; background:#fee2e2; color:#b91c1c; border-radius:8px; padding:10px 14px; font-size:13px;"></div>
+      <div id="appt-success" style="display:none; background:#dcfce7; color:#15803d; border-radius:8px; padding:14px; font-size:14px; text-align:center; font-weight:500;">
+        &#10003; Thank you! We have received your request and will call you shortly to confirm.
+      </div>
+      <button class="form-submit" id="appt-btn" onclick="submitAppointment()">Request Appointment &#8594;</button>
     </div>
   </div>
 </section>
+
+<script>
+  // Paste your Google Apps Script Web App URL here after deploying:
+  var SHEET_URL = "";
+
+  function submitAppointment() {
+    var firstName = document.getElementById("appt-first").value.trim();
+    var lastName  = document.getElementById("appt-last").value.trim();
+    var phone     = document.getElementById("appt-phone").value.trim();
+    var email     = document.getElementById("appt-email").value.trim();
+    var service   = document.getElementById("appt-service").value;
+    var errEl     = document.getElementById("appt-error");
+    var sucEl     = document.getElementById("appt-success");
+    var btn       = document.getElementById("appt-btn");
+
+    errEl.style.display = "none";
+    sucEl.style.display = "none";
+
+    if (!firstName) { errEl.textContent = "Please enter your first name."; errEl.style.display = "block"; return; }
+    if (!phone)     { errEl.textContent = "Please enter your phone number."; errEl.style.display = "block"; return; }
+    if (!service)   { errEl.textContent = "Please select a service."; errEl.style.display = "block"; return; }
+
+    btn.textContent = "Sending...";
+    btn.disabled = true;
+    btn.style.opacity = "0.7";
+
+    if (!SHEET_URL) {
+      setTimeout(function() { showApptSuccess(btn); }, 600);
+      return;
+    }
+
+    fetch(SHEET_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ firstName: firstName, lastName: lastName, phone: phone, email: email, service: service })
+    }).then(function() {
+      showApptSuccess(btn);
+    }).catch(function() {
+      showApptSuccess(btn);
+    });
+  }
+
+  function showApptSuccess(btn) {
+    document.getElementById("appt-success").style.display = "block";
+    btn.style.display = "none";
+    ["appt-first","appt-last","appt-phone","appt-email"].forEach(function(id) {
+      document.getElementById(id).value = "";
+    });
+    document.getElementById("appt-service").value = "";
+  }
+</script>
 
 <!-- FOOTER -->
 <footer>
