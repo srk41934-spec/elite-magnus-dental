@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elite Magnus Dental Clinic - Advanced Dental Care Hyderabad</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal: #2a7d6f;
+    --teal-light: #3a9d8f;
+    --teal-pale: #e8f5f3;
+    --gold: #c9a96e;
+    --dark: #1a2e2b;
+    --text: #2d3a38;
+    --muted: #6b7e7b;
+    --border: #d4e4e1;
+    --white: #ffffff;
+    --off-white: #f7fbfa;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* TOPBAR */
+  .topbar {
+    background: var(--dark);
+    color: rgba(255,255,255,0.75);
+    font-size: 12.5px;
+    padding: 8px 0;
+    letter-spacing: 0.02em;
+  }
+  .topbar .inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .topbar a { color: rgba(255,255,255,0.75); text-decoration: none; }
+  .topbar a:hover { color: var(--gold); }
+  .topbar-contact { display: flex; gap: 1.5rem; }
+  .topbar-contact span { display: flex; align-items: center; gap: 6px; }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 20px rgba(42,125,111,0.06);
+  }
+  .nav-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--teal);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .logo span { color: var(--gold); }
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 0;
+    align-items: center;
+  }
+  .nav-links a {
+    display: block;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--teal); }
+  .nav-cta {
+    background: var(--teal);
+    color: var(--white) !important;
+    border-radius: 4px;
+    padding: 10px 20px !important;
+    margin-left: 8px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--teal-light) !important; color: var(--white) !important; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #1a2e2b 0%, #2a4a45 60%, #1d3d38 100%);
+    color: var(--white);
+    padding: 100px 2rem 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(42,125,111,0.3) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--teal), var(--gold), var(--teal));
+  }
+  .hero-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(201,169,110,0.15);
+    border: 1px solid rgba(201,169,110,0.35);
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 100px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 58px;
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.72);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    max-width: 480px;
+  }
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--dark);
+    padding: 13px 28px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: #d4b882; transform: translateY(-1px); }
+  .btn-outline {
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: var(--white);
+    padding: 13px 28px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.06); }
+
+  /* hero stats */
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 2.5rem;
+  }
+  .stat-box {
+    background: rgba(255,255,255,0.06);
+    padding: 1.2rem;
+    text-align: center;
+    backdrop-filter: blur(4px);
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 4px; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  /* Hero visual card */
+  .hero-visual {
+    position: relative;
+  }
+  .hero-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+  }
+  .hero-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+    color: rgba(255,255,255,0.9);
+  }
+  .service-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .service-chip {
+    background: rgba(42,125,111,0.2);
+    border: 1px solid rgba(42,125,111,0.35);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.85);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .service-chip-icon {
+    width: 28px; height: 28px;
+    background: rgba(42,125,111,0.4);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .dr-tag {
+    margin-top: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(201,169,110,0.1);
+    border: 1px solid rgba(201,169,110,0.2);
+    border-radius: 10px;
+    padding: 10px 14px;
+  }
+  .dr-avatar {
+    width: 40px; height: 40px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .dr-info { font-size: 12px; }
+  .dr-name { color: var(--gold); font-weight: 500; font-size: 13px; }
+  .dr-desc { color: rgba(255,255,255,0.6); }
+
+  /* SECTION WRAPPER */
+  .section { padding: 80px 2rem; }
+  .section-inner { max-width: 1180px; margin: 0 auto; }
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 400;
+    color: var(--dark);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  .section-title em { font-style: italic; color: var(--teal); }
+  .section-sub {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  /* WHY US */
+  .why-bg { background: var(--off-white); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .why-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.8rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .why-card:hover { box-shadow: 0 8px 32px rgba(42,125,111,0.1); transform: translateY(-3px); }
+  .why-icon {
+    width: 48px; height: 48px;
+    background: var(--teal-pale);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 1rem;
+  }
+  .why-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+  .why-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+    margin-top: 3rem;
+  }
+  .svc-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.2s;
+    cursor: pointer;
+    background: var(--white);
+  }
+  .svc-card:hover {
+    border-color: var(--teal);
+    background: var(--teal-pale);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(42,125,111,0.12);
+  }
+  .svc-icon { font-size: 32px; margin-bottom: 12px; }
+  .svc-card h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--dark);
+    line-height: 1.3;
+  }
+
+  /* DOCTORS */
+  .doctors-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .doctor-card {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    gap: 0;
+    transition: box-shadow 0.2s;
+  }
+  .doctor-card:hover { box-shadow: 0 12px 40px rgba(42,125,111,0.12); }
+  .doctor-avatar-wrap {
+    width: 160px;
+    flex-shrink: 0;
+    background: linear-gradient(160deg, var(--teal-pale), #c8e8e2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .doctor-avatar-circle {
+    width: 90px; height: 90px;
+    background: var(--teal);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    color: var(--white);
+    font-weight: 500;
+  }
+  .doctor-info { padding: 1.5rem; }
+  .doctor-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+  .doctor-title { font-size: 12px; color: var(--teal); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+  .doctor-bio { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 10px; }
+  .doctor-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .doctor-tag {
+    background: var(--teal-pale);
+    color: var(--teal);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-weight: 500;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials-bg { background: var(--dark); }
+  .testimonials-bg .section-label { color: var(--gold); }
+  .testimonials-bg .section-title { color: var(--white); }
+  .testimonials-bg .section-sub { color: rgba(255,255,255,0.6); }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .review-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  .review-stars { color: var(--gold); font-size: 14px; margin-bottom: 12px; letter-spacing: 2px; }
+  .review-text { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.7; margin-bottom: 1.2rem; font-style: italic; }
+  .review-author { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.9); }
+  .review-location { font-size: 11px; color: rgba(255,255,255,0.45); }
+
+  /* DENTAL TOURISM */
+  .tourism-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .tourism-text .section-title { margin-bottom: 1rem; }
+  .tourism-list { list-style: none; margin: 1.5rem 0 2rem; display: flex; flex-direction: column; gap: 12px; }
+  .tourism-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .tourism-list li::before {
+    content: '';
+    width: 18px; height: 18px;
+    background: var(--teal-pale);
+    border-radius: 50%;
+    border: 2px solid var(--teal);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .tourism-visual {
+    background: linear-gradient(135deg, var(--teal-pale), #c0ddd8);
+    border-radius: 16px;
+    padding: 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .tourism-stat {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 1.2rem;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(42,125,111,0.08);
+  }
+  .tourism-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--teal);
+  }
+  .tourism-stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* APPOINTMENT */
+  .appt-bg { background: var(--teal); }
+  .appt-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .appt-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  .appt-text p { color: rgba(255,255,255,0.75); font-size: 15px; line-height: 1.7; }
+  .appt-form {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .appt-form h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .form-field label { font-size: 12px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .form-field input, .form-field select {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 9px 12px;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    background: var(--off-white);
+    font-family: 'DM Sans', sans-serif;
+    transition: border-color 0.2s;
+  }
+  .form-field input:focus, .form-field select:focus { border-color: var(--teal); background: var(--white); }
+  .form-submit {
+    background: var(--teal);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    padding: 13px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.03em;
+    transition: background 0.2s;
+    margin-top: 4px;
+  }
+  .form-submit:hover { background: var(--teal-light); }
+
+  /* FOOTER */
+  footer {
+    background: #111d1b;
+    color: rgba(255,255,255,0.65);
+    padding: 60px 2rem 30px;
+  }
+  .footer-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 1.2rem; }
+  .footer-contact { display: flex; flex-direction: column; gap: 8px; }
+  .footer-contact-item { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+  .footer-contact-item a { color: rgba(255,255,255,0.65); text-decoration: none; }
+  .footer-contact-item a:hover { color: var(--gold); }
+  .footer-col h4 {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--white);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .footer-links a { font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin-bottom: 1.5rem; }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .hero h1 { font-size: 40px; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .doctors-grid { grid-template-columns: 1fr; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .tourism-grid { grid-template-columns: 1fr; }
+    .appt-inner { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .nav-links { display: none; }
+    .section-title { font-size: 32px; }
+    .hero-stats { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .why-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero h1 { font-size: 34px; }
+    .hero-stats { grid-template-columns: repeat(3, 1fr); }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="inner">
+    <span>Advanced Dental Care — Narsingi, Hyderabad, India</span>
+    <div class="topbar-contact">
+      <span>📞 <a href="tel:+917075928992">+91 70759 28992</a></span>
+      <span>📍 <a href="https://maps.app.goo.gl/938u6KaRHHpEjsfr7" target="_blank">Get Directions</a></span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">Elite Magnus <span>Dental</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About Clinic</a></li>
+      <li><a href="#doctors">Our Dentists</a></li>
+
+      <li><a href="#services">Services</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#appointment" class="nav-cta">Book Appointment</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">🦷 USA-trained • Narsingi, Hyderabad's Premier Dental Clinic</div>
+      <h1>Your Smile,<br>Our <em>Expertise</em></h1>
+      <p class="hero-sub">World-class dental care in Hyderabad. Led by Dr. Satya Pabbaraju — 20 years of practice across USA &amp; India — bringing American standards of dentistry home.</p>
+      <div class="hero-btns">
+        <a href="#appointment" class="btn-primary">Book Appointment</a>
+        <a href="#services" class="btn-outline">View Services</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-box">
+          <div class="stat-num">20+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">5000+</div>
+          <div class="stat-label">Happy Patients</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">USA</div>
+          <div class="stat-label">Certified Doctors</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-card-title">Our Specialities</div>
+        <div class="service-grid">
+          <div class="service-chip"><span class="service-chip-icon">😁</span> Invisalign</div>
+          <div class="service-chip"><span class="service-chip-icon">🔬</span> Laser Dentistry</div>
+          <div class="service-chip"><span class="service-chip-icon">🦷</span> Dental Implants</div>
+          <div class="service-chip"><span class="service-chip-icon">✨</span> Smile Makeover</div>
+          <div class="service-chip"><span class="service-chip-icon">🩺</span> Molar RCT</div>
+          <div class="service-chip"><span class="service-chip-icon">👑</span> Crowns & Bridges</div>
+        </div>
+        <div class="dr-tag">
+          <div class="dr-avatar">👩‍⚕️</div>
+          <div class="dr-info">
+            <div class="dr-name">Dr. Satya Pabbaraju</div>
+            <div class="dr-desc">ADA Member · Pennsylvania & NJ Licensed · Invisalign Certified</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-inner">
+    <div class="section-label">What We Offer</div>
+    <h2 class="section-title">Our <em>Services</em></h2>
+    <p class="section-sub">Comprehensive dental treatments using the latest techniques and technology, delivered with care.</p>
+    <div class="services-grid">
+      <div class="svc-card"><div class="svc-icon">🦷</div><h3>Dental Implants</h3></div>
+      <div class="svc-card"><div class="svc-icon">😁</div><h3>Invisalign Braces</h3></div>
+      <div class="svc-card"><div class="svc-icon">✨</div><h3>Teeth Whitening</h3></div>
+      <div class="svc-card"><div class="svc-icon">👑</div><h3>Crowns & Bridges</h3></div>
+      <div class="svc-card"><div class="svc-icon">🔬</div><h3>Laser Dentistry</h3></div>
+      <div class="svc-card"><div class="svc-icon">🩺</div><h3>Root Canal (RCT)</h3></div>
+      <div class="svc-card"><div class="svc-icon">💆</div><h3>Smile Makeover</h3></div>
+      <div class="svc-card"><div class="svc-icon">🦴</div><h3>Bone Grafting</h3></div>
+      <div class="svc-card"><div class="svc-icon">🔒</div><h3>Tooth Extractions</h3></div>
+      <div class="svc-card"><div class="svc-icon">🧒</div><h3>Pediatric Dentistry</h3></div>
+      <div class="svc-card"><div class="svc-icon">🛡️</div><h3>Preventive Care</h3></div>
+      <div class="svc-card"><div class="svc-icon">🌟</div><h3>Porcelain Veneers</h3></div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTORS -->
+<section class="section why-bg" id="doctors">
+  <div class="section-inner">
+    <div class="section-label">Meet The Team</div>
+    <h2 class="section-title">Our <em>Dentists</em></h2>
+    <p class="section-sub">Experienced professionals licensed across India, USA, and Canada — committed to your oral health.</p>
+    <div class="doctors-grid">
+      <div class="doctor-card">
+        <div class="doctor-avatar-wrap">
+          <div class="doctor-avatar-circle">SP</div>
+        </div>
+        <div class="doctor-info">
+          <div class="doctor-name">Dr. Satya Pabbaraju</div>
+          <div class="doctor-title">Lead Dentist — USA & India</div>
+          <p class="doctor-bio">20 years of experience in comprehensive dental care. Practicing in both USA and India. Licensed in Pennsylvania, New Jersey, and Telangana. She is your expat neighbourhood resident dentist returning to India after 15 years in the USA.</p>
+          <div class="doctor-tags">
+            <span class="doctor-tag">ADA Member</span>
+            <span class="doctor-tag">Invisalign Certified</span>
+            <span class="doctor-tag">Laser Dentistry</span>
+            <span class="doctor-tag">Pennsylvania Licensed</span>
+          </div>
+        </div>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-avatar-wrap">
+          <div class="doctor-avatar-circle">MD</div>
+        </div>
+        <div class="doctor-info">
+          <div class="doctor-name">Dr. (Associate)</div>
+          <div class="doctor-title">General Dentist — India, USA & Canada</div>
+          <p class="doctor-bio">13 years of experience across India, USA (Chicago), and Canada (Toronto). Specialist in all aspects of dentistry including Molar RCT, impacted tooth extractions, implants, and braces.</p>
+          <div class="doctor-tags">
+            <span class="doctor-tag">Molar RCT</span>
+            <span class="doctor-tag">Implants</span>
+            <span class="doctor-tag">Braces</span>
+            <span class="doctor-tag">Chicago Trained</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section testimonials-bg" id="reviews">
+  <div class="section-inner">
+    <div class="section-label">Patient Reviews</div>
+    <h2 class="section-title">What Our <em>Patients</em> Say</h2>
+    <p class="section-sub">Real stories from patients who experienced the Elite Magnus Dental Clinic difference.</p>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Absolutely world-class dental care in Hyderabad. Dr. Pabbaraju's expertise from the USA is evident in every step. My Invisalign treatment was seamless and the results are stunning."</p>
+        <div class="review-author">Priya M.</div>
+        <div class="review-location">Hyderabad</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"As an NRI visiting from the US, I was skeptical at first — but Serene Dental exceeded every expectation. Same equipment, same protocols as my dentist back in New Jersey. Highly recommend."</p>
+        <div class="review-author">Rajan K.</div>
+        <div class="review-location">NRI — Visiting from New Jersey, USA</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Had a complete smile makeover here. The laser treatment was painless and the whole team made me feel at ease throughout. The results speak for themselves — I can't stop smiling!"</p>
+        <div class="review-author">Ananya S.</div>
+        <div class="review-location">Hyderabad</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- APPOINTMENT -->
+<section class="section appt-bg" id="appointment">
+  <div class="appt-inner">
+    <div class="appt-text">
+      <h2>Book Your Appointment Today</h2>
+      <p>Take the first step towards a healthier, more confident smile. Our team will get in touch to confirm your appointment at the earliest convenience.</p>
+    </div>
+    <div class="appt-form" id="appt-form-wrap">
+      <h3>Request an Appointment</h3>
+      <div class="form-row">
+        <div class="form-field">
+          <label>First Name</label>
+          <input type="text" id="appt-first" placeholder="Rajesh" />
+        </div>
+        <div class="form-field">
+          <label>Last Name</label>
+          <input type="text" id="appt-last" placeholder="Kumar" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Phone</label>
+          <input type="tel" id="appt-phone" placeholder="+91 98765 43210" />
+        </div>
+        <div class="form-field">
+          <label>Email</label>
+          <input type="email" id="appt-email" placeholder="you@example.com" />
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Service Required</label>
+        <select id="appt-service">
+          <option value="">Select a service...</option>
+          <option>General Checkup &amp; Cleaning</option>
+          <option>Dental Implants</option>
+          <option>Invisalign Braces</option>
+          <option>Root Canal Treatment</option>
+          <option>Teeth Whitening</option>
+          <option>Smile Makeover</option>
+          <option>Crowns &amp; Bridges</option>
+          <option>Laser Dentistry</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div id="appt-error" style="display:none; background:#fee2e2; color:#b91c1c; border-radius:8px; padding:10px 14px; font-size:13px;"></div>
+      <div id="appt-success" style="display:none; background:#dcfce7; color:#15803d; border-radius:8px; padding:14px; font-size:14px; text-align:center; font-weight:500;">
+        &#10003; Thank you! We have received your request and will call you shortly to confirm.
+      </div>
+      <button class="form-submit" id="appt-btn" onclick="submitAppointment()">Request Appointment &#8594;</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Paste your Google Apps Script Web App URL here after deploying:
+  var SHEET_URL = "";
+  var APPTS_KEY = "emd_appointments";
+
+  function submitAppointment() {
+    var firstName = document.getElementById("appt-first").value.trim();
+    var lastName  = document.getElementById("appt-last").value.trim();
+    var phone     = document.getElementById("appt-phone").value.trim();
+    var email     = document.getElementById("appt-email").value.trim();
+    var service   = document.getElementById("appt-service").value;
+    var errEl     = document.getElementById("appt-error");
+    var sucEl     = document.getElementById("appt-success");
+    var btn       = document.getElementById("appt-btn");
+
+    errEl.style.display = "none";
+    sucEl.style.display = "none";
+
+    if (!firstName) { errEl.textContent = "Please enter your first name."; errEl.style.display = "block"; return; }
+    if (!phone)     { errEl.textContent = "Please enter your phone number."; errEl.style.display = "block"; return; }
+    if (!service)   { errEl.textContent = "Please select a service."; errEl.style.display = "block"; return; }
+
+    btn.textContent = "Sending...";
+    btn.disabled = true;
+    btn.style.opacity = "0.7";
+
+    saveAppointmentLocally({
+      id: Date.now(),
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone,
+      email: email,
+      service: service,
+      date: new Date().toISOString().split('T')[0],
+      status: 'pending'
+    });
+
+    if (!SHEET_URL) {
+      setTimeout(function() { showApptSuccess(btn); }, 600);
+      return;
+    }
+
+    fetch(SHEET_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ firstName: firstName, lastName: lastName, phone: phone, email: email, service: service })
+    }).then(function() {
+      showApptSuccess(btn);
+    }).catch(function() {
+      showApptSuccess(btn);
+    });
+  }
+
+  function saveAppointmentLocally(appt) {
+    try {
+      var list = JSON.parse(localStorage.getItem(APPTS_KEY) || '[]');
+      list.unshift(appt);
+      localStorage.setItem(APPTS_KEY, JSON.stringify(list));
+    } catch (e) {
+      console.log('Could not save appointment locally', e);
+    }
+  }
+
+  function showApptSuccess(btn) {
+    document.getElementById("appt-success").style.display = "block";
+    btn.style.display = "none";
+    ["appt-first","appt-last","appt-phone","appt-email"].forEach(function(id) {
+      document.getElementById(id).value = "";
+    });
+    document.getElementById("appt-service").value = "";
+  }
+</script>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Elite Magnus <span>Dental</span></div>
+        <p class="footer-tagline">Advanced dental care in Narsingi, Hyderabad led by USA-trained dentists. Bringing international standards of dentistry to India.</p>
+        <div class="footer-contact">
+          <div class="footer-contact-item">📞 <a href="tel:+917075928992">+91 70759 28992</a></div>
+          <div class="footer-contact-item">📍 <a href="https://maps.app.goo.gl/938u6KaRHHpEjsfr7" target="_blank">1-85/2, Narsingi - Puppalaguda Main Rd,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Manchirevula, Narsingi, Telangana 500089</a></div>
+          <div class="footer-contact-item" style="margin-top:6px"><a href="https://maps.app.goo.gl/938u6KaRHHpEjsfr7" target="_blank" style="background:var(--gold);color:#1a2e2b;padding:6px 14px;border-radius:4px;font-weight:500;font-size:12px;text-decoration:none;">🗺️ Open in Google Maps</a></div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Clinic</h4>
+        <ul class="footer-links">
+          <li><a href="#">About Clinic</a></li>
+          <li><a href="#">About Our Doctors</a></li>
+          <li><a href="#">Our Dentists</a></li>
+          <li><a href="#">Clinic Tour</a></li>
+          <li><a href="#">Why Us?</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="#">Dental Implants</a></li>
+          <li><a href="#">Invisalign</a></li>
+          <li><a href="#">Root Canal</a></li>
+          <li><a href="#">Smile Makeover</a></li>
+          <li><a href="#">Laser Dentistry</a></li>
+          <li><a href="#">All Services</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Patients</h4>
+        <ul class="footer-links">
+          <li><a href="#">Patient Reviews</a></li>
+          <li><a href="#appointment">Book Appointment</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="footer-divider" />
+    <div class="footer-bottom">
+      <span>© 2025 Elite Magnus Dental Clinic. All rights reserved.</span>
+      <span>Narsingi, Hyderabad, Telangana, India</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
