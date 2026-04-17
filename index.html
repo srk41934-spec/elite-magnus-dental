@@ -882,6 +882,7 @@
 <script>
   // Paste your Google Apps Script Web App URL here after deploying:
   var SHEET_URL = "";
+  var APPTS_KEY = "emd_appointments";
 
   function submitAppointment() {
     var firstName = document.getElementById("appt-first").value.trim();
@@ -904,6 +905,17 @@
     btn.disabled = true;
     btn.style.opacity = "0.7";
 
+    saveAppointmentLocally({
+      id: Date.now(),
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone,
+      email: email,
+      service: service,
+      date: new Date().toISOString().split('T')[0],
+      status: 'pending'
+    });
+
     if (!SHEET_URL) {
       setTimeout(function() { showApptSuccess(btn); }, 600);
       return;
@@ -919,6 +931,16 @@
     }).catch(function() {
       showApptSuccess(btn);
     });
+  }
+
+  function saveAppointmentLocally(appt) {
+    try {
+      var list = JSON.parse(localStorage.getItem(APPTS_KEY) || '[]');
+      list.unshift(appt);
+      localStorage.setItem(APPTS_KEY, JSON.stringify(list));
+    } catch (e) {
+      console.log('Could not save appointment locally', e);
+    }
   }
 
   function showApptSuccess(btn) {
