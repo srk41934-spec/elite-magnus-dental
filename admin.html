@@ -382,17 +382,6 @@
     font-size: 12px; color: var(--teal-light);
     font-family: monospace;
   }
-
-  /* No setup area, show demo mode notice */
-  .demo-banner {
-    background: rgba(245,158,11,0.1);
-    border: 1px solid rgba(245,158,11,0.2);
-    border-radius: 12px; padding: 14px 18px;
-    font-size: 13px; color: #fbbf24;
-    margin-bottom: 1.5rem;
-    display: flex; align-items: center; gap: 10px;
-  }
-
   /* Responsive */
   @media (max-width: 900px) {
     .sidebar { width: 60px; }
@@ -483,12 +472,6 @@
           <div class="stat-icon">✅</div>
         </div>
       </div>
-
-      <!-- Demo banner -->
-      <div class="demo-banner" id="demo-banner">
-        ⚠️ <strong>Demo Mode:</strong> Connect your Google Sheet in <strong>Setup</strong> to see real appointments. Sample data shown below.
-      </div>
-
       <!-- Filters -->
       <div class="filter-bar">
         <div class="search-wrap">
@@ -628,15 +611,6 @@ const SHEET_URL_KEY  = 'emd_sheet_url';
 const APPTS_KEY      = 'emd_appointments';
 const DEFAULT_PASS   = 'dental2025';
 
-// ── DEMO DATA ──
-const DEMO_DATA = [
-  { id: 1, firstName:'Priya',    lastName:'Mehta',    phone:'+91 98765 00001', email:'priya@gmail.com',    service:'Invisalign Braces',       date:'2026-04-17', status:'confirmed' },
-  { id: 2, firstName:'Rajan',    lastName:'Kumar',    phone:'+91 98765 00002', email:'rajan@gmail.com',    service:'Dental Implants',          date:'2026-04-17', status:'pending'   },
-  { id: 3, firstName:'Ananya',   lastName:'Singh',    phone:'+91 98765 00003', email:'ananya@gmail.com',   service:'Teeth Whitening',          date:'2026-04-15', status:'confirmed' },
-  { id: 4, firstName:'Vikram',   lastName:'Reddy',    phone:'+91 98765 00004', email:'vikram@gmail.com',   service:'Root Canal Treatment',     date:'2026-04-14', status:'cancelled' },
-  { id: 5, firstName:'Sunita',   lastName:'Rao',      phone:'+91 98765 00005', email:'sunita@gmail.com',   service:'General Checkup & Cleaning',date:'2026-04-13',status:'confirmed' },
-];
-
 let allAppointments = [];
 let sheetUrl = '';
 
@@ -678,13 +652,11 @@ function showPage(page) {
 // ── DATA ──
 function loadData() {
   sheetUrl = localStorage.getItem(SHEET_URL_KEY) || '';
-  const saved = localStorage.getItem(APPTS_KEY);
-  if (saved) {
-    allAppointments = JSON.parse(saved);
-    document.getElementById('demo-banner').style.display = 'none';
-  } else {
-    allAppointments = JSON.parse(JSON.stringify(DEMO_DATA));
-    document.getElementById('demo-banner').style.display = 'flex';
+
+  try {
+    allAppointments = JSON.parse(localStorage.getItem(APPTS_KEY) || '[]');
+  } catch (e) {
+    allAppointments = [];
   }
 
   if (sheetUrl) {
@@ -694,23 +666,22 @@ function loadData() {
       .then(data => {
         if (data && data.appointments) {
           allAppointments = data.appointments.map((r, i) => ({
-            id: i + 1,
+            id: Number(r[7]) || Date.now() + i,
             firstName: r[1] || '', lastName: r[2] || '',
             phone: r[3] || '', email: r[4] || '',
             service: r[5] || '', date: r[0] || '',
             status: r[6] || 'pending'
           }));
           localStorage.setItem(APPTS_KEY, JSON.stringify(allAppointments));
-          document.getElementById('demo-banner').style.display = 'none';
         }
         document.getElementById('last-refresh').textContent = 'Live · ' + new Date().toLocaleTimeString();
         renderTable();
       }).catch(() => {
-        document.getElementById('last-refresh').textContent = 'Offline · using local data';
+        document.getElementById('last-refresh').textContent = 'Updated · ' + new Date().toLocaleTimeString();
         renderTable();
       });
   } else {
-    document.getElementById('last-refresh').textContent = 'Demo Mode';
+    document.getElementById('last-refresh').textContent = 'Updated · ' + new Date().toLocaleTimeString();
     renderTable();
   }
 }
@@ -744,9 +715,7 @@ function addManual() {
   document.getElementById('manual-status').textContent = '✅ Appointment added!';
   ['m-first','m-last','m-phone','m-email'].forEach(id => document.getElementById(id).value='');
   updateStats();
-  filterTable();
-  document.getElementById('demo-banner').style.display = 'none';
-}
+  filterTable();}
 
 // ── RENDER ──
 function renderTable(data) {
