@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: CLIPBOARD
+Sitemap: https://elitemagnusdentalclinic.github.io/elite-magnus-dental/sitemap.xml
