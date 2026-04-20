@@ -479,7 +479,7 @@
           <input class="search-input" type="text" id="search-input" placeholder="Search by name, phone or service..." oninput="filterTable()">
         </div>
         <select class="filter-select" id="status-filter" onchange="filterTable()">
-          <option value="">All Statuses</option>
+          <option value="https://script.google.com/macros/s/AKfycby6Cvwn-hFOSM8snEJYNtbL4U_VxtLhisLLpRsC8K51SGsHOGZowpaf2BML1-iSaT2j/exec">All Statuses</option>
           <option value="pending">Pending</option>
           <option value="confirmed">Confirmed</option>
           <option value="cancelled">Cancelled</option>
@@ -612,7 +612,7 @@ const APPTS_KEY      = 'emd_appointments';
 const DEFAULT_PASS   = 'dental2025';
 
 let allAppointments = [];
-let sheetUrl = '';
+let sheetUrl = 'https://script.google.com/macros/s/AKfycby6Cvwn-hFOSM8snEJYNtbL4U_VxtLhisLLpRsC8K51SGsHOGZowpaf2BML1-iSaT2j/exec';
 
 // ── AUTH ──
 function getPassword() { return localStorage.getItem(ADMIN_PASS_KEY) || DEFAULT_PASS; }
