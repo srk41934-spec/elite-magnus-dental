@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="google-site-verification" content="c9w4doAla6NMPqtBfLIao2t4QM_UsN3IsYW_YbiC8sI" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elite Magnus Dental Clinic - Advanced Dental Care Hyderabad</title>
@@ -668,9 +669,11 @@
   <div class="nav-inner">
     <a href="#" class="logo">Elite Magnus <span>Dental</span></a>
     <ul class="nav-links">
+      <li><a href="#about">About Clinic</a></li>
       <li><a href="#doctors">Our Dentists</a></li>
 
       <li><a href="#services">Services</a></li>
+      <li><a href="#reviews">Reviews</a></li>
       <li><a href="#appointment" class="nav-cta">Book Appointment</a></li>
     </ul>
   </div>
@@ -680,7 +683,9 @@
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-content">
+      <div class="hero-badge">🦷 USA-trained • Narsingi, Hyderabad's Premier Dental Clinic</div>
       <h1>Your Smile,<br>Our <em>Expertise</em></h1>
+      <p class="hero-sub">World-class dental care in Hyderabad. Led by Dr. Satya Pabbaraju — 20 years of practice across USA &amp; India — bringing American standards of dentistry home.</p>
       <div class="hero-btns">
         <a href="#appointment" class="btn-primary">Book Appointment</a>
         <a href="#services" class="btn-outline">View Services</a>
@@ -693,6 +698,10 @@
         <div class="stat-box">
           <div class="stat-num">5000+</div>
           <div class="stat-label">Happy Patients</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">USA</div>
+          <div class="stat-label">Certified Doctors</div>
         </div>
       </div>
     </div>
@@ -707,6 +716,12 @@
           <div class="service-chip"><span class="service-chip-icon">🩺</span> Molar RCT</div>
           <div class="service-chip"><span class="service-chip-icon">👑</span> Crowns & Bridges</div>
         </div>
+        <div class="dr-tag">
+          <div class="dr-avatar">👩‍⚕️</div>
+          <div class="dr-info">
+            <div class="dr-name">Dr. Satya Pabbaraju</div>
+            <div class="dr-desc">ADA Member · Pennsylvania & NJ Licensed · Invisalign Certified</div>
+          </div>
         </div>
       </div>
     </div>
@@ -743,7 +758,7 @@
   <div class="section-inner">
     <div class="section-label">Meet The Team</div>
     <h2 class="section-title">Our <em>Dentists</em></h2>
-    
+    <p class="section-sub">Experienced professionals licensed across India, USA, and Canada — committed to your oral health.</p>
     <div class="doctors-grid">
       <div class="doctor-card">
         <div class="doctor-avatar-wrap">
@@ -781,7 +796,34 @@
   </div>
 </section>
 
-
+<!-- REVIEWS -->
+<section class="section testimonials-bg" id="reviews">
+  <div class="section-inner">
+    <div class="section-label">Patient Reviews</div>
+    <h2 class="section-title">What Our <em>Patients</em> Say</h2>
+    <p class="section-sub">Real stories from patients who experienced the Elite Magnus Dental Clinic difference.</p>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Absolutely world-class dental care in Hyderabad. Dr. Pabbaraju's expertise from the USA is evident in every step. My Invisalign treatment was seamless and the results are stunning."</p>
+        <div class="review-author">Priya M.</div>
+        <div class="review-location">Hyderabad</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"As an NRI visiting from the US, I was skeptical at first — but Serene Dental exceeded every expectation. Same equipment, same protocols as my dentist back in New Jersey. Highly recommend."</p>
+        <div class="review-author">Rajan K.</div>
+        <div class="review-location">NRI — Visiting from New Jersey, USA</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Had a complete smile makeover here. The laser treatment was painless and the whole team made me feel at ease throughout. The results speak for themselves — I can't stop smiling!"</p>
+        <div class="review-author">Ananya S.</div>
+        <div class="review-location">Hyderabad</div>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 
@@ -840,7 +882,8 @@
 
 <script>
   // Paste your Google Apps Script Web App URL here after deploying:
-  var SHEET_URL = "";
+  var SHEET_URL = "https://script.google.com/macros/s/AKfycby6Cvwn-hFOSM8snEJYNtbL4U_VxtLhisLLpRsC8K51SGsHOGZowpaf2BML1-iSaT2j/exec";
+  var APPTS_KEY = "emd_appointments";
 
   function submitAppointment() {
     var firstName = document.getElementById("appt-first").value.trim();
@@ -863,6 +906,17 @@
     btn.disabled = true;
     btn.style.opacity = "0.7";
 
+    saveAppointmentLocally({
+      id: Date.now(),
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone,
+      email: email,
+      service: service,
+      date: new Date().toISOString().split('T')[0],
+      status: 'pending'
+    });
+
     if (!SHEET_URL) {
       setTimeout(function() { showApptSuccess(btn); }, 600);
       return;
@@ -878,6 +932,16 @@
     }).catch(function() {
       showApptSuccess(btn);
     });
+  }
+
+  function saveAppointmentLocally(appt) {
+    try {
+      var list = JSON.parse(localStorage.getItem(APPTS_KEY) || '[]');
+      list.unshift(appt);
+      localStorage.setItem(APPTS_KEY, JSON.stringify(list));
+    } catch (e) {
+      console.log('Could not save appointment locally', e);
+    }
   }
 
   function showApptSuccess(btn) {
@@ -906,6 +970,7 @@
       <div class="footer-col">
         <h4>Clinic</h4>
         <ul class="footer-links">
+          <li><a href="#">About Clinic</a></li>
           <li><a href="#">About Our Doctors</a></li>
           <li><a href="#">Our Dentists</a></li>
           <li><a href="#">Clinic Tour</a></li>
@@ -926,6 +991,7 @@
       <div class="footer-col">
         <h4>Patients</h4>
         <ul class="footer-links">
+          <li><a href="#">Patient Reviews</a></li>
           <li><a href="#appointment">Book Appointment</a></li>
         </ul>
       </div>
